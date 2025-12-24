@@ -1,0 +1,32 @@
+{
+    // 1. 配置 Python 解释器路径
+    // 强制 VS Code 使用 MinGW64 环境下的 Python，而不是 Windows 官方 Python
+    "python.defaultInterpreterPath": "C:\\msys64\\mingw64\\bin\\python.exe",
+
+    // 2. 定义一个名为 "MinGW64" 的终端配置
+    "terminal.integrated.profiles.windows": {
+        "MinGW64": {
+            // 指向 MSYS2 的 bash
+            "path": "C:\\msys64\\usr\\bin\\bash.exe", 
+            // 启动参数：--login 登录 shell，-i 交互模式
+            "args": ["--login", "-i"],
+            "env": {
+                // 关键：告诉 MSYS2 我们要用 64位的 MinGW 环境
+                "MSYSTEM": "MINGW64",
+                // 关键：保持当前工作目录为 VS Code 打开的项目目录，而不是跳回 /home/user
+                "CHERE_INVOKING": "1",
+                // 确保 path 包含 mingw64/bin，防止某些工具找不到 dll
+                "PATH": "/mingw64/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+            }
+        }
+    },
+
+    // 3. 将其设置为默认终端
+    "terminal.integrated.defaultProfile.windows": "MinGW64",
+
+    // 4. 额外的 Python 分析路径 (可选)
+    // 帮助 Pylance 更好地找到你的 pjsua2 库（如果在 site-packages 里找不到的话）
+    "python.analysis.extraPaths": [
+        "C:\\msys64\\mingw64\\lib\\python3.12\\site-packages"
+    ]
+}
