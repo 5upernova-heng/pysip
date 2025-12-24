@@ -235,7 +235,7 @@ class SipPhoneApp(QMainWindow):
         try:
             adm = self.ep.audDevManager()
             adm.refreshDevs()
-            devs = adm.enumDev() 
+            devs = adm.enumDev2() 
             current_cap = adm.getCaptureDev()
             current_play = adm.getPlaybackDev()
 
